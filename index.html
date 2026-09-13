@@ -1,0 +1,633 @@
+<title>RoAsig Cluj</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --ink:#12241d;
+    --ink-soft:#3d5348;
+    --paper:#f0efe6;
+    --paper-raised:#fbfaf4;
+    --paper-line:#d9d6c7;
+    --gold:#b8842c;
+    --gold-strong:#96691d;
+    --rust:#9a4b34;
+    --text:#182620;
+    --text-muted:#4d5f55;
+    --focus:#96691d;
+    font-size:16px;
+  }
+
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ink:#eae6d8;
+      --ink-soft:#b9c3ba;
+      --paper:#0c1712;
+      --paper-raised:#132019;
+      --paper-line:#28362f;
+      --gold:#d6a24a;
+      --gold-strong:#e4b567;
+      --rust:#d97e60;
+      --text:#eae6d8;
+      --text-muted:#a3ab9f;
+      --focus:#d6a24a;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ink:#eae6d8;
+    --ink-soft:#b9c3ba;
+    --paper:#0c1712;
+    --paper-raised:#132019;
+    --paper-line:#28362f;
+    --gold:#d6a24a;
+    --gold-strong:#e4b567;
+    --rust:#d97e60;
+    --text:#eae6d8;
+    --text-muted:#a3ab9f;
+    --focus:#d6a24a;
+  }
+
+  *{box-sizing:border-box;}
+  ::selection{background:var(--gold);color:var(--paper);}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--text);
+    font-family:"Public Sans", ui-sans-serif, system-ui, sans-serif;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;}
+  h1,h2,h3{
+    font-family:"Fraunces", Georgia, serif;
+    color:var(--ink);
+    text-wrap:balance;
+    margin:0;
+    letter-spacing:-0.01em;
+  }
+  .mono{
+    font-family:"IBM Plex Mono", ui-monospace, monospace;
+    letter-spacing:0.02em;
+  }
+  .eyebrow{
+    font-family:"IBM Plex Mono", ui-monospace, monospace;
+    text-transform:uppercase;
+    font-size:0.72rem;
+    letter-spacing:0.14em;
+    color:var(--gold-strong);
+    font-weight:500;
+  }
+  .wrap{
+    max-width:1120px;
+    margin:0 auto;
+    padding-inline:24px;
+  }
+  section{padding-block:clamp(56px,9vw,104px);}
+  p{max-width:65ch;color:var(--text-muted);}
+  .lede{font-size:1.1rem;color:var(--text);}
+
+  /* ---------- header ---------- */
+  header.site{
+    position:sticky; top:0; z-index:40;
+    background:color-mix(in srgb, var(--paper) 88%, transparent);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--paper-line);
+  }
+  .nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding-block:14px;
+    gap:16px;
+  }
+  .brand{
+    display:flex; align-items:center; gap:10px;
+    font-family:"Fraunces", serif; font-weight:600; font-size:1.15rem;
+    color:var(--ink); text-decoration:none; white-space:nowrap;
+  }
+  .brand .seal-mini{width:30px;height:30px;flex:none;}
+  nav.links{display:flex; gap:26px; align-items:center;}
+  nav.links a{
+    text-decoration:none; font-size:0.92rem; color:var(--text-muted);
+    font-weight:500;
+  }
+  nav.links a:hover{color:var(--ink);}
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    background:var(--ink); color:var(--paper);
+    padding:11px 20px; border-radius:3px;
+    text-decoration:none; font-weight:600; font-size:0.92rem;
+    border:1px solid var(--ink);
+    cursor:pointer;
+    transition:transform .15s ease, background .15s ease;
+    font-family:"Public Sans", sans-serif;
+  }
+  .btn:hover{background:var(--gold-strong); border-color:var(--gold-strong); color:#1b1206;}
+  .btn:focus-visible, a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible{
+    outline:2px solid var(--focus); outline-offset:2px;
+  }
+  .btn.ghost{
+    background:transparent; color:var(--ink); border:1px solid var(--paper-line);
+  }
+  .btn.ghost:hover{border-color:var(--gold); color:var(--gold-strong); background:transparent;}
+  .nav-cta{display:flex; gap:10px; align-items:center;}
+  .menu-toggle{display:none;}
+
+  /* ---------- hero ---------- */
+  .hero{
+    padding-block:clamp(48px,9vw,88px) clamp(40px,7vw,72px);
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1.15fr 0.85fr;
+    gap:56px;
+    align-items:center;
+  }
+  .hero h1{
+    font-size:clamp(2.1rem,4.4vw,3.3rem);
+    line-height:1.08;
+    font-weight:600;
+    margin-top:14px;
+  }
+  .hero h1 em{font-style:italic; color:var(--gold-strong);}
+  .hero p.lede{margin-top:18px; font-size:1.12rem; max-width:46ch;}
+  .hero-ctas{display:flex; gap:12px; margin-top:30px; flex-wrap:wrap;}
+  .trust-row{
+    display:flex; gap:22px; flex-wrap:wrap;
+    margin-top:38px; padding-top:22px; border-top:1px solid var(--paper-line);
+  }
+  .trust-item{display:flex; flex-direction:column; gap:2px;}
+  .trust-item b{font-family:"Fraunces",serif; font-size:1.4rem; color:var(--ink); font-weight:600;}
+  .trust-item span{font-size:0.8rem; color:var(--text-muted);}
+
+  .seal-wrap{
+    display:flex; align-items:center; justify-content:center;
+    position:relative;
+  }
+  .seal{width:min(320px,80%); height:auto; animation:seal-in .9s cubic-bezier(.2,.7,.2,1) both;}
+  @keyframes seal-in{from{opacity:0; transform:scale(.85) rotate(-6deg);} to{opacity:1; transform:scale(1) rotate(0);}}
+  @media (prefers-reduced-motion:reduce){ .seal{animation:none;} }
+  .seal .ring-text{font-family:"IBM Plex Mono", monospace; font-size:6.6px; letter-spacing:2.4px; fill:var(--ink-soft);}
+  .seal .lion{fill:var(--gold-strong);}
+  .seal circle.hairline{stroke:var(--ink-soft); fill:none;}
+  .seal circle.thick{stroke:var(--ink); fill:none;}
+  .seal text.big{font-family:"Fraunces",serif; fill:var(--ink); font-weight:600;}
+
+  /* ---------- about strip ---------- */
+  .about{
+    display:grid; grid-template-columns:0.9fr 1.1fr; gap:48px; align-items:start;
+  }
+  .id-card{
+    background:var(--paper-raised); border:1px solid var(--paper-line);
+    border-radius:4px; padding:26px 24px;
+  }
+  .id-card .row{
+    display:flex; justify-content:space-between; gap:12px;
+    padding-block:10px; border-bottom:1px dashed var(--paper-line);
+    font-size:0.88rem;
+  }
+  .id-card .row:last-child{border-bottom:none;}
+  .id-card .row span:first-child{color:var(--text-muted);}
+  .id-card .row span:last-child{font-family:"IBM Plex Mono",monospace; color:var(--ink); text-align:right;}
+  .about h2{font-size:clamp(1.6rem,3vw,2.15rem); margin-bottom:16px;}
+  .about-text p{margin-block:14px;}
+
+  /* ---------- products ---------- */
+  .section-head{
+    display:flex; justify-content:space-between; align-items:flex-end;
+    gap:24px; margin-bottom:36px; flex-wrap:wrap;
+  }
+  .section-head h2{font-size:clamp(1.6rem,3vw,2.15rem);}
+  .product-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+    gap:1px;
+    background:var(--paper-line);
+    border:1px solid var(--paper-line);
+    border-radius:6px;
+    overflow:hidden;
+  }
+  .product-card{
+    background:var(--paper-raised);
+    padding:24px 22px;
+    display:flex; flex-direction:column; gap:12px;
+    min-height:210px;
+  }
+  .product-card .code{
+    font-size:0.68rem; color:var(--gold-strong);
+    display:inline-block; width:fit-content;
+    border:1px solid color-mix(in srgb, var(--gold) 45%, transparent);
+    padding:2px 8px; border-radius:20px;
+  }
+  .product-card h3{font-size:1.1rem; font-weight:600;}
+  .product-card p{font-size:0.9rem; margin:0; max-width:none;}
+  .product-card .cta{
+    margin-top:auto; font-size:0.85rem; font-weight:600; color:var(--ink);
+    text-decoration:none; display:inline-flex; align-items:center; gap:6px;
+  }
+  .product-card .cta:hover{color:var(--gold-strong);}
+  .more-note{
+    margin-top:22px; font-size:0.88rem; padding:16px 18px;
+    border:1px dashed var(--paper-line); border-radius:6px; background:var(--paper-raised);
+    max-width:none;
+  }
+
+  /* ---------- process ---------- */
+  .process-band{background:var(--ink); color:var(--paper);}
+  .process-band .eyebrow{color:var(--gold);}
+  .process-band h2{color:var(--paper);}
+  .process-band p{color:color-mix(in srgb, var(--paper) 70%, transparent);}
+  .steps{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:0;
+    margin-top:40px;
+    border-top:1px solid color-mix(in srgb, var(--paper) 22%, transparent);
+  }
+  .step{
+    padding:24px 20px 0 0;
+    border-right:1px solid color-mix(in srgb, var(--paper) 22%, transparent);
+  }
+  .step:last-child{border-right:none; padding-right:0;}
+  .step .num{
+    font-family:"IBM Plex Mono",monospace; color:var(--gold);
+    font-size:0.85rem; display:block; margin-bottom:10px;
+  }
+  .step h3{color:var(--paper); font-size:1.05rem; font-weight:600;}
+  .step p{color:color-mix(in srgb, var(--paper) 68%, transparent); font-size:0.9rem; margin-top:8px;}
+
+  /* ---------- sfaturi ---------- */
+  .tips{display:grid; grid-template-columns:repeat(3,1fr); gap:22px;}
+  .tip{
+    border:1px solid var(--paper-line); border-radius:6px; padding:22px;
+    background:var(--paper-raised);
+  }
+  .tip .eyebrow{display:block; margin-bottom:10px;}
+  .tip h3{font-size:1.02rem; font-weight:600; margin-bottom:8px;}
+  .tip p{font-size:0.9rem; margin:0;}
+
+  /* ---------- contact ---------- */
+  .contact-band{background:var(--paper-raised); border-top:1px solid var(--paper-line); border-bottom:1px solid var(--paper-line);}
+  .contact-grid{display:grid; grid-template-columns:1fr 1.15fr; gap:52px; align-items:flex-start;}
+  .contact-pitch h2{font-size:clamp(1.6rem,3vw,2.15rem);}
+  .contact-list{list-style:none; padding:0; margin:24px 0 0; display:flex; flex-direction:column; gap:14px;}
+  .contact-list li{display:flex; gap:12px; font-size:0.94rem; color:var(--text);}
+  .contact-list b{font-family:"IBM Plex Mono",monospace; font-weight:500; color:var(--gold-strong); font-size:0.85rem;}
+
+  .doc-form{
+    background:var(--paper); border:1px solid var(--paper-line); border-radius:6px;
+    padding:30px; position:relative;
+  }
+  .doc-form::before{
+    content:"CERERE DE OFERTĂ";
+    font-family:"IBM Plex Mono",monospace; font-size:0.68rem; letter-spacing:0.16em;
+    color:var(--text-muted); position:absolute; top:14px; right:20px;
+  }
+  .field{display:flex; flex-direction:column; gap:6px; margin-bottom:18px;}
+  .field label{font-size:0.78rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-muted); font-weight:600;}
+  .field input, .field select, .field textarea{
+    font:inherit; font-family:"Public Sans",sans-serif;
+    padding:11px 12px; border:1px solid var(--paper-line); border-radius:3px;
+    background:var(--paper-raised); color:var(--text);
+  }
+  .field textarea{resize:vertical; min-height:88px;}
+  .field-row{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+  .doc-form .btn{width:100%; justify-content:center; margin-top:6px; padding-block:13px;}
+  .form-note{font-size:0.78rem; color:var(--text-muted); margin-top:12px; max-width:none;}
+  .form-note a{color:var(--gold-strong); text-decoration:underline;}
+  #form-status{font-size:0.85rem; margin-top:10px; min-height:1.2em;}
+  #form-status[data-state="ok"]{color:var(--gold-strong);}
+
+  /* ---------- footer ---------- */
+  footer{border-top:1px solid var(--paper-line); padding-block:40px;}
+  .footer-grid{display:flex; justify-content:space-between; gap:24px; flex-wrap:wrap; align-items:flex-start;}
+  .fine-print{
+    font-family:"IBM Plex Mono",monospace; font-size:0.72rem; line-height:1.7;
+    color:var(--text-muted); max-width:70ch;
+  }
+  .footer-brand{font-family:"Fraunces",serif; font-weight:600; color:var(--ink); font-size:1.05rem;}
+
+  @media (max-width:860px){
+    nav.links{display:none;}
+    .hero-grid{grid-template-columns:1fr;}
+    .seal-wrap{order:-1; margin-bottom:8px;}
+    .seal{width:180px;}
+    .about{grid-template-columns:1fr;}
+    .steps{grid-template-columns:1fr 1fr; row-gap:28px;}
+    .step{border-right:none; border-bottom:1px solid color-mix(in srgb, var(--paper) 22%, transparent); padding-bottom:20px;}
+    .tips{grid-template-columns:1fr;}
+    .contact-grid{grid-template-columns:1fr;}
+    .field-row{grid-template-columns:1fr;}
+    .footer-grid{flex-direction:column;}
+  }
+</style>
+
+<header class="site">
+  <div class="wrap nav">
+    <a href="#top" class="brand">
+      <svg class="seal-mini" viewBox="0 0 40 40" aria-hidden="true">
+        <circle cx="20" cy="20" r="18" fill="none" stroke="currentColor" stroke-width="1.4" style="color:var(--gold)"/>
+        <circle cx="20" cy="20" r="13.5" fill="none" stroke="currentColor" stroke-width="0.7" style="color:var(--ink-soft)"/>
+        <path d="M20 11 L23.5 18 L20 29 L16.5 18 Z" fill="var(--gold-strong)"/>
+      </svg>
+      RoAsig Cluj
+    </a>
+    <nav class="links">
+      <a href="#produse">Produse</a>
+      <a href="#despre">Despre mine</a>
+      <a href="#cum-lucram">Cum lucrăm</a>
+      <a href="#sfaturi">Sfaturi</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="btn ghost" href="tel:+40700000000">0700&nbsp;000&nbsp;000</a>
+      <a class="btn" href="#contact">Cere ofertă</a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="eyebrow">Consultant în asigurări · agent Generali</span>
+        <h1>Asigurarea potrivită,<br>explicată <em>pe limba ta</em>.</h1>
+        <p class="lede">Sunt Călin-Vlad Cătinași — te ajut să alegi RCA, CASCO, asigurarea locuinței, de călătorie sau de viață fără clauze ascunse și fără presiune de vânzare. Primești o ofertă clară, cu ce acoperă și ce nu.</p>
+        <div class="hero-ctas">
+          <a class="btn" href="#contact">Trimite-mi o cerere</a>
+          <a class="btn ghost" href="#produse">Vezi asigurările</a>
+        </div>
+        <div class="trust-row">
+          <div class="trust-item"><b>9</b><span>tipuri de asigurări acoperite</span></div>
+          <div class="trust-item"><b>RA-002/2003</b><span>autorizare Generali România · ASF</span></div>
+          <div class="trust-item"><b>&lt; 24h</b><span>timp de răspuns la cereri</span></div>
+        </div>
+      </div>
+      <div class="seal-wrap">
+        <svg class="seal" viewBox="0 0 240 240" role="img" aria-label="Sigiliu RoAsig Cluj">
+          <circle class="thick" cx="120" cy="120" r="108" stroke-width="2"/>
+          <circle class="hairline" cx="120" cy="120" r="96" stroke-width="1"/>
+          <path id="ringTop" d="M 120 24 A 96 96 0 0 1 216 120" fill="none"/>
+          <path id="ringBot" d="M 24 120 A 96 96 0 0 1 120 216" fill="none"/>
+          <text class="ring-text"><textPath href="#ringTop" startOffset="2">CONSULTANT ÎN ASIGURĂRI · AGENT GENERALI</textPath></text>
+          <text class="ring-text"><textPath href="#ringBot" startOffset="2">CLUJ-NAPOCA · ROMÂNIA · PFA CĂTINAȘI</textPath></text>
+          <path class="lion" d="M120 78 L133 108 L120 168 L107 108 Z"/>
+          <circle class="lion" cx="120" cy="78" r="6"/>
+          <text class="big" x="120" y="200" font-size="17" text-anchor="middle" textLength="110" lengthAdjust="spacingAndGlyphs">ROASIG CLUJ</text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section id="despre">
+    <div class="wrap about">
+      <div class="id-card">
+        <div class="row"><span>Nume</span><span>Călin-Vlad Cătinași</span></div>
+        <div class="row"><span>Statut</span><span>PFA · consultant Generali</span></div>
+        <div class="row"><span>Bază</span><span>Cluj-Napoca</span></div>
+        <div class="row"><span>Fond</span><span>10+ ani IT &amp; infrastructură</span></div>
+        <div class="row"><span>Cod RAF</span><span>de completat</span></div>
+        <div class="row"><span>Portofoliu</span><span>persoane fizice · IMM</span></div>
+      </div>
+      <div class="about-text">
+        <h2>De ce să discuți cu mine, nu doar cu un call-center.</h2>
+        <p>Vin din IT — administrez rețele și infrastructură critică de ani buni, așa că sunt obișnuit să citesc documentație tehnică stufoasă și să scot din ea ce contează cu adevărat. Aplic exact aceeași abordare condițiilor de asigurare: le citesc integral, nu doar rezumatul de marketing, și îți spun clar unde sunt limitele și excluderile — nu doar avantajele.</p>
+        <p>Lucrez ca și consultant Generali, dar rolul meu e să te ajut pe tine să alegi corect: dacă un produs nu ți se potrivește, îți spun de la început, chiar dacă asta înseamnă o poliță mai mică sau deloc.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="produse">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Portofoliu Generali</span>
+          <h2>Asigurări pe care le pot pune la punct pentru tine</h2>
+        </div>
+        <p style="margin:0;">Fiecare produs de mai jos are un Document de Informare (PID) oficial Generali — ți-l trimit integral înainte să semnezi orice.</p>
+      </div>
+
+      <div class="product-grid">
+
+        <div class="product-card">
+          <span class="code mono">Clasa 10 · obligatorie</span>
+          <h3>RCA</h3>
+          <p>Răspundere civilă auto — acoperă prejudiciile produse unor terți (daune materiale, vătămări, deces) într-un accident. Valabilă în România, UE/SEE și țările din Acordul Multilateral.</p>
+          <a class="cta" href="#contact">Cere ofertă RCA →</a>
+        </div>
+
+        <div class="product-card">
+          <span class="code mono">Clasa A3 · facultativă</span>
+          <h3>CASCO</h3>
+          <p>Acoperă mașina proprie: incendiu, furt, avarii din accident, calamități naturale (grindină, furtună, cutremur, inundații), plus clauze opționale — vandalism, asistență rutieră extinsă, mașină la schimb.</p>
+          <a class="cta" href="#contact">Cere ofertă CASCO →</a>
+        </div>
+
+        <div class="product-card">
+          <span class="code mono">Clasa A8 · PAD + Eurocasa</span>
+          <h3>Locuință</h3>
+          <p>PAD (obligatorie) acoperă riscurile de bază — cutremur, inundație, alunecări de teren. Eurocasa (facultativă) completează cu incendiu, explozie și avarii, pentru clădire și conținut până la 500.000€.</p>
+          <a class="cta" href="#contact">Cere ofertă Locuință →</a>
+        </div>
+
+        <div class="product-card">
+          <span class="code mono">Clasa A18</span>
+          <h3>Travel</h3>
+          <p>Cheltuieli medicale de urgență și repatriere pe durata călătoriei în străinătate, în caz de accident sau îmbolnăvire neprevăzută. Se emite în câteva minute, valabilă pe durata și zona aleasă.</p>
+          <a class="cta" href="#contact">Cere ofertă Travel →</a>
+        </div>
+
+        <div class="product-card">
+          <span class="code mono">Clasa A1</span>
+          <h3>Accidente persoane</h3>
+          <p>Protecție individuală sau de familie: deces sau invaliditate în urma unui accident, spitalizare, intervenții chirurgicale, fracturi — valabilă oriunde în lume, indiferent de vinovăție.</p>
+          <a class="cta" href="#contact">Cere ofertă Accidente →</a>
+        </div>
+
+        <div class="product-card">
+          <span class="code mono">viață · economisire</span>
+          <h3>Asigurări de viață</h3>
+          <p>Practic Plus combină protecția în caz de deces cu economisirea pe termen lung și participare la câștig. Majorat construiește un fond pentru copil, plătibil la 18 ani.</p>
+          <a class="cta" href="#contact">Cere ofertă Viață →</a>
+        </div>
+
+        <div class="product-card">
+          <span class="code mono">Clasa A8 · IMM</span>
+          <h3>IMM &amp; spații comerciale</h3>
+          <p>Poliță multi-risc pentru clădirea și conținutul unei microîntreprinderi sau IMM — incendiu, calamități naturale, furt prin efracție opțional — pentru locații de până la 1.000.000€.</p>
+          <a class="cta" href="#contact">Cere ofertă IMM →</a>
+        </div>
+
+        <div class="product-card">
+          <span class="code mono">Clasa A8 · civil</span>
+          <h3>Cabinete &amp; sedii</h3>
+          <p>Asigurare de incendiu pentru activități civile — birouri, cabinete de avocatură/notariat/contabilitate, sedii de firmă — altele decât locuința de domiciliu.</p>
+          <a class="cta" href="#contact">Cere ofertă →</a>
+        </div>
+
+        <div class="product-card">
+          <span class="code mono">Clasa 13 · claims-made</span>
+          <h3>Malpraxis medical</h3>
+          <p>Răspundere civilă profesională pentru medici, medici dentiști, asistenți medicali și farmaciști, autorizați de liberă practică — acoperă daunele reclamate de pacienți în perioada poliței.</p>
+          <a class="cta" href="#contact">Cere ofertă Malpraxis →</a>
+        </div>
+
+      </div>
+
+      <p class="more-note">Portofoliul Generali include și linii pentru viață grup, sănătate privată și corporate — nu am încă fișele de produs finalizate pentru site, dar te pun în legătură direct cu departamentul de specialitate dacă ai nevoie de una dintre ele.</p>
+    </div>
+  </section>
+
+  <section id="cum-lucram" class="process-band">
+    <div class="wrap">
+      <span class="eyebrow">Proces</span>
+      <h2>De la discuție la poliță semnată</h2>
+      <p class="lede" style="margin-top:10px;">Patru pași, fără vizite la birou dacă nu vrei.</p>
+      <div class="steps">
+        <div class="step">
+          <span class="num mono">01</span>
+          <h3>Îmi spui ce ai de asigurat</h3>
+          <p>Prin formular, telefon sau WhatsApp — mașină, locuință, sănătate sau afacere.</p>
+        </div>
+        <div class="step">
+          <span class="num mono">02</span>
+          <h3>Compar variante reale</h3>
+          <p>Îți arăt opțiunile Generali potrivite, cu franșize și excluderi explicate clar.</p>
+        </div>
+        <div class="step">
+          <span class="num mono">03</span>
+          <h3>Semnezi de la distanță</h3>
+          <p>Documentele și plata se fac electronic — nu ai nevoie să vii undeva.</p>
+        </div>
+        <div class="step">
+          <span class="num mono">04</span>
+          <h3>Rămân persoana ta de contact</h3>
+          <p>La reînnoire sau daună, mă suni pe mine întâi, nu un call-center anonim.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="sfaturi">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Sfaturi scurte</span>
+          <h2>Câteva lucruri utile de știut</h2>
+        </div>
+      </div>
+      <div class="tips">
+        <div class="tip">
+          <span class="eyebrow">Locuință</span>
+          <h3>PAD nu e suficientă singură</h3>
+          <p>Polița obligatorie PAD acoperă doar cutremur, inundație și alunecări de teren, cu sume fixe modeste. Pentru incendiu, explozie sau avarii de la instalații ai nevoie de o poliță facultativă complementară.</p>
+        </div>
+        <div class="tip">
+          <span class="eyebrow">Auto</span>
+          <h3>CASCO cu franșiză reduce prima</h3>
+          <p>O franșiză la daune parțiale poate scădea vizibil costul anual, dacă ești dispus să acoperi tu primele sute de lei dintr-o daună mică.</p>
+        </div>
+        <div class="tip">
+          <span class="eyebrow">Călătorii</span>
+          <h3>Verifică vârsta și scopul călătoriei</h3>
+          <p>Multe polițe de travel au restricții pentru peste 60-70 de ani sau pentru călătorii de lucru — verificăm împreună înainte să plătești, nu după.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact-band">
+    <div class="wrap contact-grid">
+      <div class="contact-pitch">
+        <span class="eyebrow">Contact</span>
+        <h2>Spune-mi ce vrei să asiguri</h2>
+        <p>Completezi formularul, îți răspund personal — de obicei în aceeași zi.</p>
+        <ul class="contact-list">
+          <li><b>Tel</b> <span>0700 000 000 (Luni–Vineri, 9–18)</span></li>
+          <li><b>Email</b> <span>contact@roasig-cluj.ro</span></li>
+          <li><b>Zonă</b> <span>Cluj-Napoca, cu poliță și de la distanță oriunde în România</span></li>
+        </ul>
+      </div>
+
+      <form class="doc-form" id="offer-form">
+        <div class="field-row">
+          <div class="field">
+            <label for="f-name">Nume</label>
+            <input id="f-name" name="nume" type="text" autocomplete="name" required>
+          </div>
+          <div class="field">
+            <label for="f-phone">Telefon</label>
+            <input id="f-phone" name="telefon" type="tel" autocomplete="tel" required>
+          </div>
+        </div>
+        <div class="field">
+          <label for="f-email">Email</label>
+          <input id="f-email" name="email" type="email" autocomplete="email" required>
+        </div>
+        <div class="field">
+          <label for="f-tip">Ce vrei să asiguri</label>
+          <select id="f-tip" name="tip">
+            <option>RCA</option>
+            <option>CASCO</option>
+            <option>Locuință (PAD / Eurocasa)</option>
+            <option>Travel</option>
+            <option>Accidente persoane</option>
+            <option>Asigurare de viață</option>
+            <option>IMM / spațiu comercial</option>
+            <option>Malpraxis medical</option>
+            <option>Altceva</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="f-msg">Mesaj (opțional)</label>
+          <textarea id="f-msg" name="mesaj" placeholder="Ex: mașină nouă, vreau CASCO cu franșiză mică"></textarea>
+        </div>
+        <button class="btn" type="submit">Trimite cererea</button>
+        <p id="form-status" role="status"></p>
+        <p class="form-note">Prin trimitere, ești de acord să te contactez pentru oferta solicitată. Nu partajez datele tale cu terți în afara procesului de ofertare Generali.</p>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap footer-grid">
+    <div>
+      <div class="footer-brand">RoAsig Cluj</div>
+      <p class="fine-print" style="margin-top:10px;">Călin-Vlad Cătinași, persoană fizică autorizată (PFA)<br>Consultant / agent în asigurări — Generali România Asigurare Reasigurare S.A.<br>Cod RAF: de completat · Cluj-Napoca, România</p>
+    </div>
+    <p class="fine-print" style="max-width:52ch;">
+      Informațiile despre produse au caracter orientativ și rezumat. Condițiile complete, acoperirile, excluderile și limitele de despăgubire se regăsesc exclusiv în Documentul de Informare (PID), Condițiile Generale/Particulare și Polița semnată. În caz de neconcordanță, documentele contractuale semnate prevalează. Generali România Asigurare Reasigurare S.A. — societate autorizată de A.S.F., înregistrată în Registrul asigurătorilor sub nr. RA-002/2003.
+    </p>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var form = document.getElementById('offer-form');
+    var status = document.getElementById('form-status');
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      var d = Object.fromEntries(new FormData(form).entries());
+      var subject = encodeURIComponent('Cerere ofertă — ' + (d.tip || 'asigurare'));
+      var body = encodeURIComponent(
+        'Nume: ' + d.nume + '\n' +
+        'Telefon: ' + d.telefon + '\n' +
+        'Email: ' + d.email + '\n' +
+        'Tip asigurare: ' + d.tip + '\n' +
+        'Mesaj: ' + (d.mesaj || '-')
+      );
+      window.location.href = 'mailto:contact@roasig-cluj.ro?subject=' + subject + '&body=' + body;
+      status.textContent = 'Se deschide clientul tău de email cu mesajul precompletat — dă Send acolo ca să ajungă la mine.';
+      status.dataset.state = 'ok';
+    });
+  })();
+
+  (function(){
+    try{
+      var snap = window.claude && window.claude.hot;
+      if(!snap) return;
+      function start(){}
+      snap.ready ? snap.ready(start) : start();
+    }catch(e){}
+  })();
+</script>
