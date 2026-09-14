@@ -6,13 +6,10 @@ Site static, fără build, fără dependențe de server-side.
 
 ```
 roasig/
-├── index.html            pagina principală (conținut + structură)
-└── assets/
-    ├── css/
-    │   └── style.css     toate stilurile site-ului
-    ├── js/
-    │   └── main.js        logica formularului de contact
-    └── img/                (gol — pentru poze/logo viitoare)
+├── index.html   pagina principală (conținut + structură)
+├── style.css    toate stilurile site-ului
+├── main.js      logica formularului de contact
+└── README.md
 ```
 
 ## Cum publici o modificare
@@ -20,8 +17,8 @@ roasig/
 Orice modificare la `index.html`, `style.css` sau `main.js` se reflectă
 imediat — sunt fișiere statice, deschise direct de browser.
 
-Pentru DataHost: urci întregul folder `roasig/` (păstrând structura de
-mai sus) în `public_html` din cPanel File Manager, sau prin FTP.
+Pentru DataHost: urci toate cele 3 fișiere (`index.html`, `style.css`,
+`main.js`) direct în `public_html` din cPanel File Manager, sau prin FTP.
 
 ## De completat
 
@@ -29,4 +26,3 @@ mai sus) în `public_html` din cPanel File Manager, sau prin FTP.
   „Despre mine" și în footer.
 - Număr de telefon real — apare momentan `0700 000 000` (placeholder) în
   header, secțiunea hero și secțiunea de contact.
-- `assets/img/` — logo/poză, dacă vrei să adaugi.
